@@ -7,6 +7,6 @@ const Lesson = new Schema({
   id_profesor: String
 });
 
-const ModelClass = mongoose.model("User", Lesson);
+const ModelClass = mongoose.model("Lesson", Lesson);
 
 module.exports = ModelClass;

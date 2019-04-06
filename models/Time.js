@@ -3,15 +3,19 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt-nodejs");
 
 const Time = new Schema({
-  hour: [
+  day: {
+    type :String,
+     hour: [
     {
       startTime: Number,
       endTime: Number
     }
-  ],
-  day: String
+  ]
+  }
+ 
+  
 });
 
-const ModelClass = mongoose.model("User", Time);
+const ModelClass = mongoose.model("Time", Time);
 
 module.exports = ModelClass;

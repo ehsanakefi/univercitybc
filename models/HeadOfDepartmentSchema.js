@@ -9,6 +9,7 @@ const HeadOfDepartmentSchema = new Schema(
     familyName: String,
     username: { type: String, unique: true, require },
     password: { type: String, required: true, select: false },
+    lessonsOfgroup:[],
     level: {
       type: String,
       enum: [
@@ -68,7 +69,6 @@ HeadOfDepartmentSchema.methods.comparePass = function(
   condidatePassword,
   callback
 ) {
-  console.log("###")
   bcrypt.compare(condidatePassword, this.password, (err, isMatch) => {
     if (err) {
       return callback(err);

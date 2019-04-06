@@ -6,7 +6,7 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const localStrategy = require('passport-local');
 
 const localLogin = new localStrategy((username, pass, done) => {
-  console.log("!!!!!!!!!!"+username);
+  
   User.findOne({ username: username}, '_id email name familyName phone password address level pic ')
     .exec()
     .then((us) => {
@@ -30,8 +30,7 @@ const localLogin = new localStrategy((username, pass, done) => {
 const jwtOptions = { jwtFromRequest: ExtractJwt.fromHeader('registertoken'), secretOrKey: config.secret };
 
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
-  console.log("***111----**");
-
+  
   User.findById(payload.sub)
     .exec()
     .then((us) => {

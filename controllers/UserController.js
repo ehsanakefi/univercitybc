@@ -85,6 +85,9 @@ exports.removeUser = (req, res, next) => {
 
 exports.login = (req, res, next) => {
   user = req.user;
+  console.log("req.user = "+req.user);
+  console.log("req.body.fcmToken = "+req.body.fcmToken);
+
   if (req.body.fcmToken) {
     user.fcmToken = req.body.fcmToken;
 
@@ -93,13 +96,12 @@ exports.login = (req, res, next) => {
       .then(userSaved => res.send({ token: tok(userSaved), userSaved }))
       .catch(err => res.status(422).send({ error: "we have a issue!" }));
   } else {
-    console.log(tok(req.user));
-    console.log(tok(req.user));
-
     return res.send({ token: tok(req.user), user });
   }
 };
-
+exports.addProfesor=(req,res,next)=>{
+  console.log(req.body)
+}
 exports.register = (req, res, next) => {
   let { email, password, name, familyName, username } = req.body;
 

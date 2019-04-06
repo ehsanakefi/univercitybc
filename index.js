@@ -54,5 +54,5 @@ router(app);
 
 module.exports = app;
 
-server.listen(1376);
+server.listen(port);
 console.log('Server roye in port ejra shod : ', port);

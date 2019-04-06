@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt-nodejs");
 
 const Profesor = new Schema(
   {
-    email: { type: String, unique: true, lowercase: true },
+    
     name: String,
     familyName: String,
     level: {
@@ -22,13 +22,18 @@ const Profesor = new Schema(
       ],
       default: "normal"
     },
-    id_tiem: String,
+    id_HeadOfProfesor:String,
+    day:[ {
+      nameday:String,
+      startTime:String,
+      endTime:String
+    }],
     pic: String,
     picRef: { type: Schema.Types.ObjectId, ref: "File" }
   },
   { timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" } }
 );
 
-const ModelClass = mongoose.model("User", Profesor);
+const ModelClass = mongoose.model("Profesor", Profesor);
 
 module.exports = ModelClass;

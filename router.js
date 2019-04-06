@@ -4,7 +4,7 @@ const passport = require('passport')
 const path = require('path')
 const crypto = require('crypto')
 const multer = require( 'multer' )
-
+const ProfesorContorller=require('./controllers/ProfesorContorller')
 const UserController = require('./controllers/UserController')
 const FileController = require('./controllers/FileController')
 
@@ -34,6 +34,6 @@ module.exports = (app) => {
 
   app.post('/login', jsonParser, requireSignin, UserController.login)
   app.post('/register',jsonParser,UserController.register)
-  
+  app.post('/addProfesor',jsonParser,ProfesorContorller.addProfesor)
   
 }
