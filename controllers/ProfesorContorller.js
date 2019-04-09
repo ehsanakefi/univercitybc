@@ -11,18 +11,25 @@ const Time = require("../models/Time");
 
 exports.addProfesor = (req, res, next) => {
   let { name, familyName, Lesson, day } = req.body;
-  console.log("Time is" + day[0].startTime);
-  console.log("Lesson is" + req.user);
+  let id_HeadOfProfesor=req.user._id;
+
   let profesor = new Profesor({
     name,
     familyName,
     Lesson,
-    day
+    day,
+    id_HeadOfProfesor
   });
   profesor.save().then(
-  profesorsave=>{console.log(profesorsave)
+  profesorsave=>{
   res.json({profesorsave});
   }
   ).catch(err=>res.status(422).send('not save profesor'))
   
 };
+
+exports.getProfesor=(req,res,next)=>{
+Profesor.find({id_HeadOfProfesor:{$eq:req.user._id}})
+.exec()
+.then(profesorres=>res.send({profesorsreq:profesorres}))
+}

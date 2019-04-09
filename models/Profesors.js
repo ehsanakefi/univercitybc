@@ -23,6 +23,7 @@ const Profesor = new Schema(
       default: "normal"
     },
     id_HeadOfProfesor:String,
+    Lesson:[String],
     day:[ {
       nameday:String,
       startTime:String,

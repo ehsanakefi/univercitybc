@@ -34,6 +34,6 @@ module.exports = (app) => {
 
   app.post('/login', jsonParser, requireSignin, UserController.login)
   app.post('/register',jsonParser,UserController.register)
-  app.post('/addProfesor',jsonParser,ProfesorContorller.addProfesor)
-  
+  app.post('/addProfesor',jsonParser,requireAuth,ProfesorContorller.addProfesor)
+  app.get('/getProfesor',jsonParser,requireAuth,ProfesorContorller.getProfesor)
 }
