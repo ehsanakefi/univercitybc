@@ -10,6 +10,12 @@ const HeadOfDepartmentSchema = new Schema(
     username: { type: String, unique: true, require },
     password: { type: String, required: true, select: false },
     lessonsOfgroup:[],
+    dayClassTime:[ {
+      nameday:String,
+      startTime:String,
+      endTime:String,
+      numberClass:Number
+    }],
     level: {
       type: String,
       enum: [

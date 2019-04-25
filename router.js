@@ -3,8 +3,8 @@ const passportService = require('./service/passport')
 const passport = require('passport')
 const path = require('path')
 const crypto = require('crypto')
-const multer = require( 'multer' )
-const ProfesorContorller=require('./controllers/ProfesorContorller')
+const multer = require('multer')
+const ProfesorContorller = require('./controllers/ProfesorContorller')
 const UserController = require('./controllers/UserController')
 const FileController = require('./controllers/FileController')
 
@@ -20,9 +20,9 @@ var storage = multer.diskStorage({
   }
 })
 
-const upload = multer( { dest: 'pic/orginal/' } )
+const upload = multer({ dest: 'pic/orginal/' })
 
-const uploadWithExt = multer( { storage: storage } )
+const uploadWithExt = multer({ storage: storage })
 
 var jsonParser = bodyParser.json()
 
@@ -33,7 +33,8 @@ module.exports = (app) => {
   app.use(bodyParser.urlencoded({ extended: true }));
 
   app.post('/login', jsonParser, requireSignin, UserController.login)
-  app.post('/register',jsonParser,UserController.register)
-  app.post('/addProfesor',jsonParser,requireAuth,ProfesorContorller.addProfesor)
-  app.get('/getProfesor',jsonParser,requireAuth,ProfesorContorller.getProfesor)
+  app.post('/register', jsonParser, UserController.register)
+  app.post('/addProfesor', jsonParser, requireAuth, ProfesorContorller.addProfesor)
+  app.post('/addTimeClass', jsonParser, requireAuth, UserController.addTimeClass)
+  app.get('/getProfesor', jsonParser, requireAuth, ProfesorContorller.getProfesor)
 }

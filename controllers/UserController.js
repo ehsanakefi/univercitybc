@@ -36,7 +36,7 @@ exports.acceptKey = (req, res, next) => {
       if (userPey) {
         if (req.body.fcmToken !== userPey.fcmToken) {
           userPey.fcmToken = req.body.fcmToken;
-          userPey.save().then(userSaved => {});
+          userPey.save().then(userSaved => { });
         }
 
         if (_.parseInt(code) === _.parseInt(userPey.authCode)) {
@@ -82,11 +82,24 @@ exports.removeUser = (req, res, next) => {
     .then(user => res.send({ user: user }))
     .catch(err => res.status(422).send({ error: "we have a issue!" }));
 };
+exports.addTimeClass = (req, res, next) => {
+  let { days } = req.body;
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    {
+      dayClassTime:days
+    },
+    { new: true }
+  )
+    .exec()
+    .then(Timeclasssave => res.json({ Timeclasssave:Timeclasssave }))
+    .catch(err => res.status(422).send({ error: "anjam neshod", err }));
+  
+};
 
 exports.login = (req, res, next) => {
   user = req.user;
-  console.log("req.user = "+req.user);
-  console.log("req.body.fcmToken = "+req.body.fcmToken);
+  
 
   if (req.body.fcmToken) {
     user.fcmToken = req.body.fcmToken;
@@ -99,7 +112,7 @@ exports.login = (req, res, next) => {
     return res.send({ token: tok(req.user), user });
   }
 };
-exports.addProfesor=(req,res,next)=>{
+exports.addProfesor = (req, res, next) => {
   console.log(req.body)
 }
 exports.register = (req, res, next) => {
@@ -130,7 +143,7 @@ exports.register = (req, res, next) => {
                 username,
                 password
               });
-            
+
               if (req.body.fcmToken) {
                 user.fcmToken = req.body.fcmToken;
               }
@@ -194,7 +207,7 @@ exports.users = (req, res, next) => {
     .catch(err => res.status(422).send({ error: "anjam neshod" }));
 };
 
-exports.getUsersWithSearch = function(req, res, next) {
+exports.getUsersWithSearch = function (req, res, next) {
   // console.log('req.body az bigiKarbarhaBaSearch', req.body)
   // const query = '/' + req.body.search + '/';
 
@@ -220,7 +233,7 @@ exports.getUsersWithSearch = function(req, res, next) {
     .catch(err => res.status(422).send({ error: "anjam neshod" }));
 };
 
-exports.getUsersWithLevel = function(req, res, next) {
+exports.getUsersWithLevel = function (req, res, next) {
   // console.log('req.query', req.query)
 
   User.find({ level: req.query.level })
@@ -229,7 +242,7 @@ exports.getUsersWithLevel = function(req, res, next) {
     .catch(err => res.status(422).send({ error: "anjam neshod", err }));
 };
 
-exports.editUser = function(req, res, next) {
+exports.editUser = function (req, res, next) {
   User.findOneAndUpdate(
     { _id: req.body._id },
     {
@@ -245,7 +258,7 @@ exports.editUser = function(req, res, next) {
     .catch(err => res.status(422).send({ error: "anjam neshod", err }));
 };
 
-exports.editUserPass = function(req, res, next) {
+exports.editUserPass = function (req, res, next) {
   User.findById(req.body._id)
     .exec()
     .then(userFind => {
@@ -264,7 +277,7 @@ exports.UsersCount = async (req, res) => {
   return res.send({ UsersCount: count });
 };
 
-exports.addUser = function(req, res, next) {
+exports.addUser = function (req, res, next) {
   // console.log('req.body addUser Authentication', req.body)
 
   let {
