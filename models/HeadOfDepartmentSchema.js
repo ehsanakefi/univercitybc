@@ -9,12 +9,22 @@ const HeadOfDepartmentSchema = new Schema(
     familyName: String,
     username: { type: String, unique: true, require },
     password: { type: String, required: true, select: false },
-    lessonsOfgroup:[],
-    dayClassTime:[ {
-      nameday:String,
-      startTime:String,
-      endTime:String,
-      numberClass:Number
+    lessonsOfgroup: [],
+    id_Uninversity: String,
+    dayClassTime: [{
+      nameday: String,
+      startTime: String,
+      endTime: String,
+      lesson: [{
+        nameLesson: String,
+        nameProfesor: String
+      }]
+    }],
+    numberOfClass: [{
+      nameday: String,
+      startTime: String,
+      endTime: String,
+      nubmberClass: Number
     }],
     level: {
       type: String,
@@ -37,10 +47,10 @@ const HeadOfDepartmentSchema = new Schema(
   },
   { timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" } }
 );
-HeadOfDepartmentSchema.pre("save", function(next) {
+HeadOfDepartmentSchema.pre("save", function (next) {
   const user = this;
   if (!user.isModified("password")) return next();
-  bcrypt.genSalt(10, function(err, salt) {
+  bcrypt.genSalt(10, function (err, salt) {
     if (err) return next(err);
     bcrypt.hash(user.password, salt, null, (err, hash) => {
       if (err) return next(err);
@@ -70,7 +80,7 @@ HeadOfDepartmentSchema.pre("save", function(next) {
 //   });
 // });
 
-HeadOfDepartmentSchema.methods.comparePass = function(
+HeadOfDepartmentSchema.methods.comparePass = function (
 
   condidatePassword,
   callback

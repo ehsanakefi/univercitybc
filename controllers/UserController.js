@@ -87,30 +87,31 @@ exports.addTimeClass = (req, res, next) => {
   User.findOneAndUpdate(
     { _id: req.user._id },
     {
-      dayClassTime:days
+      dayClassTime: days
     },
     { new: true }
   )
     .exec()
-    .then(Timeclasssave => res.json({ Timeclasssave:Timeclasssave }))
+    .then(Timeclasssave => res.json({ Timeclasssave: Timeclasssave }))
     .catch(err => res.status(422).send({ error: "anjam neshod", err }));
-  
+
 };
 
 exports.login = (req, res, next) => {
   user = req.user;
-  
+  console.log("user is " + user)
+  console.log(req.body)
 
-  if (req.body.fcmToken) {
-    user.fcmToken = req.body.fcmToken;
+  // if (req.body.fcmToken) {
+  //   user.fcmToken = req.body.fcmToken;
 
-    user
-      .save()
-      .then(userSaved => res.send({ token: tok(userSaved), userSaved }))
-      .catch(err => res.status(422).send({ error: "we have a issue!" }));
-  } else {
-    return res.send({ token: tok(req.user), user });
-  }
+  //   user
+  //     .save()
+  //     .then(userSaved => res.send({ token: tok(userSaved), userSaved }))
+  //     .catch(err => res.status(422).send({ error: "we have a issue!" }));
+  // } else {
+  return res.send({ token: tok(req.user), user });
+  // }
 };
 exports.addProfesor = (req, res, next) => {
   console.log(req.body)

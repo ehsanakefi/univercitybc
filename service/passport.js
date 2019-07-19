@@ -6,19 +6,19 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 const localStrategy = require('passport-local');
 
 const localLogin = new localStrategy((username, pass, done) => {
-  
-  User.findOne({ username: username}, '_id email name familyName phone password address level pic ')
+  console.log("localLogin " + username + " pass " + pass)
+  User.findOne({ username: username }, '_id email name familyName phone password address level pic ')
     .exec()
     .then((us) => {
       console.log(us);
       if (us) {
         us.comparePass(pass, (err, isMatch) => {
           if (err) { return done(err); }
-          if (!isMatch) {return done(null, false);}
-  
+          if (!isMatch) { return done(null, false); }
+
           return done(null, us);
         });
-        
+
       } else {
         { return done('can not find user'); }
       }
@@ -30,7 +30,7 @@ const localLogin = new localStrategy((username, pass, done) => {
 const jwtOptions = { jwtFromRequest: ExtractJwt.fromHeader('registertoken'), secretOrKey: config.secret };
 
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
-  
+
   User.findById(payload.sub)
     .exec()
     .then((us) => {

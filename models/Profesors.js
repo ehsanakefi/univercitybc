@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt-nodejs");
 
 const Profesor = new Schema(
   {
-    
+
     name: String,
     familyName: String,
     level: {
@@ -22,13 +22,38 @@ const Profesor = new Schema(
       ],
       default: "normal"
     },
-    id_HeadOfProfesor:String,
-    Lesson:[String],
-    day:[ {
-      nameday:String,
-      startTime:String,
-      endTime:String
+    id_HeadOfProfesor: String,
+    Lesson: [String],
+    days: [{
+      nameDay: String,
+      startTime: String,
+      endTime: String
     }],
+    sexType: {
+      type: String,
+      enum: [
+        "Female",
+        "Man"
+      ],
+      default: "Man"
+    },
+    degreeEducation: {
+      type: String,
+      enum: [
+        "MasterDegree",
+        "Doctor",
+        "Others"
+      ],
+      default: "Doctor"
+    },
+    membershipType: {
+      type: String,
+      enum: [
+        "Invited",
+        "AcademicStaff"
+      ],
+      default: "AcademicStaff"
+    },
     pic: String,
     picRef: { type: Schema.Types.ObjectId, ref: "File" }
   },
